@@ -272,7 +272,7 @@ export default function RouletteClient() {
 
                   <p className="small">
                     Indiquez le code dans « Indications pour le restaurant » sur
-                    Deliveroo.
+                    Deliveroo lor's de votre prochaine commande!
                   </p>
 
                   <img
