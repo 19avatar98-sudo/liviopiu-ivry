@@ -7,9 +7,20 @@ import { GOOGLE_REVIEW_LINK, INSTAGRAM_LINK } from "../lib/config";
 
 export default function RouletteClient() {
   const [rotation, setRotation] = useState(0);
+
   const [result, setResult] = useState(null);
   const [redeemCode, setRedeemCode] = useState(null);
+
+  // loading = pedido ao servidor (fetch)
   const [loading, setLoading] = useState(false);
+
+  // spinning = animação da roda (6s), independente do fetch
+  const [spinning, setSpinning] = useState(false);
+
+  // resultado “pendente” (mostra só no fim da animação)
+  const [pendingResult, setPendingResult] = useState(null);
+  const [pendingCode, setPendingCode] = useState(null);
+
   const [error, setError] = useState(null);
 
   // ✅ guardar o print do cliente
@@ -18,7 +29,8 @@ export default function RouletteClient() {
   const segments = useMemo(() => buildSegments(PRIZES), []);
 
   async function spin() {
-    if (loading) return;
+    if (loading || spinning) return;
+
     if (!screenshot) {
       setError("Veuillez d’abord télécharger la capture d’écran.");
       return;
@@ -28,7 +40,7 @@ export default function RouletteClient() {
     setError(null);
 
     try {
-      // ✅ se quiseres enviar o ficheiro para a API (recomendado)
+      // ✅ enviar o ficheiro para a API
       const fd = new FormData();
       fd.append("screenshot", screenshot);
 
@@ -63,26 +75,33 @@ export default function RouletteClient() {
       const midPct = (seg.startPct + seg.endPct) / 2;
       const midDeg = midPct * 3.6;
 
+      // ✅ roda várias voltas e termina no centro do segmento
       const target = 360 * 8 - midDeg;
-      setRotation((prev) => prev + target);
 
+      // limpa o que está a mostrar agora
       setResult(null);
       setRedeemCode(null);
 
-      window.setTimeout(() => {
-        setResult({ label });
-        setRedeemCode(data.redeemCode);
-      }, 6000);
+      // guarda o prémio para mostrar quando a animação terminar
+      setPendingResult({ label });
+      setPendingCode(data.redeemCode);
+
+      // inicia animação (independente do loading)
+      setSpinning(true);
+      setRotation((prev) => prev + target);
     } catch (e) {
       setError(e?.message || "Erreur.");
       setResult(null);
       setRedeemCode(null);
+      setPendingResult(null);
+      setPendingCode(null);
+      setSpinning(false);
     } finally {
       setLoading(false);
     }
   }
 
-  const canSpin = !!screenshot && !loading;
+  const canSpin = !!screenshot && !loading && !spinning;
 
   return (
     <div className="container">
@@ -168,11 +187,27 @@ export default function RouletteClient() {
                     borderRadius: "50%",
                     overflow: "hidden",
                     margin: "0 auto",
-                    transform: `rotate(${rotation}deg)`,
-                    transition: loading
+                    transform: `rotate(${rotation}deg) translateZ(0)`,
+                    transition: spinning
                       ? "transform 6s cubic-bezier(0.05,0.9,0.15,1)"
                       : "transform 0s",
                     position: "relative",
+                    willChange: "transform",
+                    backfaceVisibility: "hidden",
+                    transformOrigin: "50% 50%",
+                  }}
+                  onTransitionEnd={() => {
+                    if (!spinning) return;
+
+                    // termina a animação
+                    setSpinning(false);
+
+                    // mostra o resultado no fim (sem timeout)
+                    if (pendingResult) setResult(pendingResult);
+                    if (pendingCode) setRedeemCode(pendingCode);
+
+                    setPendingResult(null);
+                    setPendingCode(null);
                   }}
                 >
                   <img
@@ -215,7 +250,7 @@ export default function RouletteClient() {
                         "translate(-50%, -50%)";
                     }}
                   >
-                    {loading ? "…" : "TOURNER"}
+                    {loading || spinning ? "…" : "TOURNER"}
                   </button>
                 </div>
               </div>
