@@ -276,10 +276,29 @@ export default function RouletteClient() {
                   </p>
 
                   <img
-                    src="/deliveroo.png"
-                    alt="Deliveroo"
-                    style={{ maxWidth: "100%", borderRadius: 10 }}
-                  />
+  src="/deliveroo.png"
+  alt="Deliveroo"
+  style={{
+    maxWidth: 180,
+    width: "100%",
+    margin: "12px auto 0",
+    display: "block",
+    borderRadius: 10,
+  }}
+/>
+
+                  <p
+  className="small"
+  style={{
+    marginTop: 10,
+    opacity: 0.85,
+    lineHeight: 1.5,
+    textAlign: "center",
+  }}
+>
+  ⚠️ Une seule récompense peut être réclamée par commande.
+</p>
+
                 </div>
               )}
             </div>
