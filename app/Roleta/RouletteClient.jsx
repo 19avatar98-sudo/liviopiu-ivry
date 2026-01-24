@@ -121,10 +121,15 @@ export default function RouletteClient() {
             {/* ESQUERDA */}
             <div className="col">
               <img
-                src="/livio-piu-logo.png"
-                alt="Livio Più"
-                style={{ height: 84 }}
-              />
+  src="/livio-piu-logo.png"
+  alt="Livio Più"
+  style={{
+    maxWidth: "100%",
+    height: 84,
+    display: "block",
+    margin: "0 auto",
+  }}
+/>
 
               <p style={{ marginTop: 12, lineHeight: 1.55 }}>
                 1) Laissez votre avis sur Google ou suivez-nous sur Instagram
