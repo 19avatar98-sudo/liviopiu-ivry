@@ -164,14 +164,44 @@ export default function RouletteClient() {
               <label className="small">Télécharger la capture d’écran</label>
 
               <input
-                className="input"
-                type="file"
-                accept="image/*"
-                onChange={(e) => {
-                  setScreenshot(e.target.files?.[0] || null);
-                  setError(null);
-                }}
-              />
+  className="input"
+  type="file"
+  accept="image/*"
+  onChange={async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // compressão para evitar "Failed to fetch" no mobile
+    const img = document.createElement("img");
+    img.src = URL.createObjectURL(file);
+    await new Promise((res) => (img.onload = res));
+
+    const maxWidth = 1000;          // mais agressivo para mobile
+    const quality = 0.7;            // 0.6–0.8 recomendado
+    const scale = Math.min(1, maxWidth / img.width);
+
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.round(img.width * scale);
+    canvas.height = Math.round(img.height * scale);
+
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+    const blob = await new Promise((res) =>
+      canvas.toBlob(res, "image/jpeg", quality)
+    );
+
+    URL.revokeObjectURL(img.src);
+
+    const compressed = new File([blob], "screenshot.jpg", {
+      type: "image/jpeg",
+    });
+
+    setScreenshot(compressed);
+    setError(null);
+  }}
+/>
+
 
               {!screenshot ? (
                 <div className="small" style={{ marginTop: 8 }}>
