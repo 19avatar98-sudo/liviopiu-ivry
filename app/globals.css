@@ -26,11 +26,12 @@ body {
 }
 
 .card {
-  background: var(--card);
+  background: rgba(255,255,255,.96);
   border-radius: 18px;
   padding: 24px;
-  box-shadow: 0 12px 40px rgba(0,0,0,.25);
+  box-shadow: 0 12px 40px rgba(0,0,0,.22);
 }
+
 .row {
   display: flex;
   gap: 18px;
@@ -75,4 +76,61 @@ body {
 
 @media (max-width: 900px) {
   .row { flex-direction: column; }
+}
+.wheelStage {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  margin: 0 auto;
+}
+
+.pointer {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 22px solid #111;
+  z-index: 5;
+}
+/* Painel frontal (verde claro Suvinil) */
+.frontPanel {
+  background: #B6DE8F;
+  border: 1px solid rgba(0,0,0,.10);
+  border-radius: 24px;
+  padding: 26px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.35);
+}
+
+/* Texto escuro legível em cima do verde claro */
+.frontPanel,
+.frontPanel p,
+.frontPanel label,
+.frontPanel .small {
+  color: #0f2f28;
+}
+
+/* Botões brancos com texto legível */
+.frontPanel .btn {
+  background: #ffffff;
+  color: #0f2f28;
+  border: 1px solid rgba(0,0,0,.12);
+}
+
+/* Input mais bonito em fundo verde claro */
+.frontPanel .input {
+  background: rgba(255,255,255,.70);
+  border: 1px solid rgba(0,0,0,.15);
+  color: #0f2f28;
+}
+
+.frontPanel {
+  background: #8FB573;          /* Ervilha Torta - Suvinil */
+  border-radius: 24px;
+  padding: 26px;
+  box-shadow: 0 12px 30px rgba(0,0,0,.18);
+  color: #0f3a2f;               /* texto verde escuro */
 }
