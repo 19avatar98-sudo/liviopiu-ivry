@@ -140,15 +140,41 @@ export default function RouletteClient() {
               </p>
 
               <button
-  onClick={() => window.open(DELIVEROO_REVIEW_LINK, "_blank", "noopener,noreferrer")}
+  onClick={() =>
+    window.open(DELIVEROO_REVIEW_LINK, "_blank", "noopener,noreferrer")
+  }
+  style={{
+    marginTop: 16,
+    padding: "14px 22px",
+    fontSize: 16,
+    fontWeight: 600,
+    borderRadius: 999,
+    border: "none",
+    background: "#1f7a5a",
+    color: "white",
+    cursor: "pointer",
+    boxShadow: "0 6px 14px rgba(0,0,0,0.15)",
+    transition: "transform 0.15s ease, box-shadow 0.15s ease",
+  }}
+  onMouseEnter={(e) => {
+    e.currentTarget.style.transform = "scale(1.04)";
+    e.currentTarget.style.boxShadow = "0 10px 20px rgba(0,0,0,0.25)";
+  }}
+  onMouseLeave={(e) => {
+    e.currentTarget.style.transform = "scale(1)";
+    e.currentTarget.style.boxShadow = "0 6px 14px rgba(0,0,0,0.15)";
+  }}
 >
-  Évaluer ma dernière commande Livio Piu sur Deliveroo
+  Évaluer ma dernière commande sur Deliveroo
 </button>
 
-<p style={{ marginTop: 10, fontSize: 13, opacity: 0.85 }}>
-  Deliveroo → Commandes → Dernière commande → Évaluer.  
+<p style={{ marginTop: 12, fontSize: 13, opacity: 0.75 }}>
+  Deliveroo → Commandes → Dernière commande → Évaluer  
+  <br />
   Puis revenez ici et tournez la roue 🎁
 </p>
+
+
 
               <div className="hr" />
 
