@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { PRIZES } from "../lib/prizes";
 import { buildSegments } from "../lib/segments";
-import { GOOGLE_REVIEW_LINK, INSTAGRAM_LINK } from "../lib/config";
+import { DELIVEROO_REVIEW_LINK } from "../lib/config";
 
 export default function RouletteClient() {
   const [rotation, setRotation] = useState(0);
@@ -139,25 +139,16 @@ export default function RouletteClient() {
                 3) Tournez la roue et recevez un code
               </p>
 
-              <div className="row" style={{ gap: 12 }}>
-                <a
-                  className="btn"
-                  href={GOOGLE_REVIEW_LINK}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Donner un avis sur Google
-                </a>
+              <button
+  onClick={() => window.open(DELIVEROO_REVIEW_LINK, "_blank", "noopener,noreferrer")}
+>
+  Évaluer ma dernière commande Livio Piu sur Deliveroo
+</button>
 
-                <a
-                  className="btn"
-                  href={INSTAGRAM_LINK}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Suivez-nous sur Instagram
-                </a>
-              </div>
+<p style={{ marginTop: 10, fontSize: 13, opacity: 0.85 }}>
+  Deliveroo → Commandes → Dernière commande → Évaluer.  
+  Puis revenez ici et tournez la roue 🎁
+</p>
 
               <div className="hr" />
 
