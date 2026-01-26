@@ -132,7 +132,7 @@ export default function RouletteClient() {
 />
 
               <p style={{ marginTop: 12, lineHeight: 1.55 }}>
-                1) Laissez votre avis sur Google ou suivez-nous sur Instagram
+                1) Evaluez votre dernier commande Deliveroo
                 <br />
                 2) Envoyez la capture d’écran
                 <br />
