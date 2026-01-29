@@ -1,7 +1,7 @@
 export const PRIZE_CODES = {
   Tomate_Mozzarella: "A1",
-  Tiramissu: "M9",
-  Pizzeta_Dop: "V9",
+  Tiramisù: "M9",
+  Pizzetta_Dop: "V9",
   Rigatoni_Bolognaise: "B8",
 };
 
